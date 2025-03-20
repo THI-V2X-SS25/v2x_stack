@@ -1,0 +1,21 @@
+services:
+  ca_service:
+    enabled: true
+    executable: v2x_stack_btp_ca_node
+    package: v2x_stack_btp
+    name: v2x_stack_btp_ca_node
+  cp_service:
+    enabled: false
+    executable: v2x_stack_btp_cp_node
+    package: v2x_stack_btp
+    name: v2x_stack_btp_cp_node
+  cp_ts_service:
+    enabled: false
+    executable: v2x_stack_btp_cp_ts_node
+    package: v2x_stack_btp
+    name: v2x_stack_btp_cp_ts_node
+  den_service:
+    enabled: false
+    executable: v2x_stack_btp_den_node
+    package: v2x_stack_btp
+    name: v2x_stack_btp_den_node

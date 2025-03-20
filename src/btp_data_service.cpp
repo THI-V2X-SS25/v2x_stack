@@ -1,6 +1,6 @@
-#include "btp_data_service.h"
+#include "btp_data_service.hpp"
 #include "rclcpp_components/register_node_macro.hpp"
-#include "v2x_stack/msg/cohda_ind.hpp"
+#include "v2x_stack_btp/msg/cohda_ind.hpp"
 #include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <vanetza/btp/header.hpp>
@@ -23,14 +23,14 @@ BtpPublisher::BtpPublisher(const rclcpp::NodeOptions & options = rclcpp::NodeOpt
         "btp_indication", std::bind(&BtpPublisher::serviceCallback, this, std::placeholders::_1, std::placeholders::_2));
 }
 
-void BtpPublisher::udpCallback(const v2x_stack::msg::CohdaInd::SharedPtr msg)
+void BtpPublisher::udpCallback(const v2x_stack_btp::msg::CohdaInd::SharedPtr msg)
 {    
     //after: evaluate the DataIndication as vanetza::btp::DataIndication
     publish(msg);
     
 }
 
-void BtpPublisher::publish (const v2x_stack::msg::CohdaInd::SharedPtr packet)
+void BtpPublisher::publish (const v2x_stack_btp::msg::CohdaInd::SharedPtr packet)
 {    
     msg::BtpDataIndication btp_msg;
     //auto btp_msg = boost::make_shared<msg::BtpDataIndication>();
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
     auto node = std::make_shared<v2x_stack_btp::BtpPublisher>(rclcpp::NodeOptions());
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Create Node");
 
-    auto subscription = node->create_subscription<v2x_stack::msg::CohdaInd>("udp_data", 10, [node](const v2x_stack::msg::CohdaInd::SharedPtr msg) {node->udpCallback(msg);});
+    auto subscription = node->create_subscription<v2x_stack_btp::msg::CohdaInd>("udp_data", 10, [node](const v2x_stack_btp::msg::CohdaInd::SharedPtr msg) {node->udpCallback(msg);});
     //auto subscription = node->create_subscription<v2x_stack::msg::CohdaInd>("udp_data", 10, [node](const v2x_stack::msg::CohdaInd::SharedPtr msg) {node->udpCallback(msg);});
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Create Subs");
     rclcpp::spin(node);

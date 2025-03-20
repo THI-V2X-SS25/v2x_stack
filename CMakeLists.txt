@@ -7,10 +7,11 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
-find_package(v2x_stack REQUIRED)
 find_package(ros_etsi_its_msgs REQUIRED)
 find_package(etsi_its_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(udp_msgs REQUIRED)
 
 set(VANETZA_INSTALL ON)
 set(VANETZA_EXPORT_PACKAGE OFF)
@@ -35,13 +36,35 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   DEPENDENCIES std_msgs
 )
 
+# Include directories
+include_directories(
+	include
+)
+
+# Add executable UDP Dispacher
+add_executable(${PROJECT_NAME}_udp_dispacher_node    
+    src/udp_dispatcher.cpp
+)
+
+#Link against dependencies UDP Dispacher
+ament_target_dependencies(${PROJECT_NAME}_udp_dispacher_node  rclcpp rclcpp_components std_msgs udp_msgs)
+
+# Link against generated messages UDP Dispacher
+rosidl_target_interfaces(${PROJECT_NAME}_udp_dispacher_node  ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# Install targets
+install(TARGETS
+${PROJECT_NAME}_udp_dispacher_node
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Add executable
-add_executable(${PROJECT_NAME}_node
-    src/btp_data_service.cpp
+add_executable(${PROJECT_NAME}_btp_data_node
+    src/btp_data_service.cpp    
 )
 
 # Include directories for the executable
-target_include_directories(${PROJECT_NAME}_node
+target_include_directories(${PROJECT_NAME}_btp_data_node
     PUBLIC
     include
     ${v2x_stack_INCLUDE_DIRS}
@@ -49,22 +72,21 @@ target_include_directories(${PROJECT_NAME}_node
 )
 
 # Link against Vanetza libraries
-target_link_libraries(${PROJECT_NAME}_node Vanetza::vanetza)
+target_link_libraries(${PROJECT_NAME}_btp_data_node Vanetza::vanetza)
 
 # Link against dependencies
-ament_target_dependencies(${PROJECT_NAME}_node
+ament_target_dependencies(${PROJECT_NAME}_btp_data_node
     rclcpp
     rclcpp_components
-    std_msgs
-    v2x_stack
+    std_msgs    
     ros_etsi_its_msgs
 )
 
 # Link against generated messages
-rosidl_target_interfaces(${PROJECT_NAME}_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+rosidl_target_interfaces(${PROJECT_NAME}_btp_data_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
 # Install targets
-install(TARGETS ${PROJECT_NAME}_node
+install(TARGETS ${PROJECT_NAME}_btp_data_node
     DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -88,7 +110,7 @@ ament_target_dependencies(${PROJECT_NAME}_ca_node
     rclcpp
     rclcpp_components
     std_msgs
-    v2x_stack
+    #v2x_stack
     ros_etsi_its_msgs
 )
 
@@ -124,7 +146,7 @@ ament_target_dependencies(${PROJECT_NAME}_cp_node
     rclcpp
     rclcpp_components
     std_msgs
-    v2x_stack
+    #v2x_stack
     ros_etsi_its_msgs
 )
 
@@ -159,7 +181,7 @@ ament_target_dependencies(${PROJECT_NAME}_den_node
     rclcpp
     rclcpp_components
     std_msgs
-    v2x_stack
+    #v2x_stack
     ros_etsi_its_msgs
 )
 
@@ -196,7 +218,7 @@ ament_target_dependencies(${PROJECT_NAME}_cp_ts_node
     rclcpp
     rclcpp_components
     std_msgs
-    v2x_stack
+    #v2x_stack
     etsi_its_msgs
 )
 
@@ -211,10 +233,23 @@ install(TARGETS ${PROJECT_NAME}_cp_ts_node
     DESTINATION lib/${PROJECT_NAME}
 )
 
+
+
 # Install include files
 install(DIRECTORY include/
     DESTINATION include/
 )
+
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(
+  DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
+
 
 # Register the package as an ament package
 ament_package()

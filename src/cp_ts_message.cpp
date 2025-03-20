@@ -38,7 +38,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
 
     if(asn1->payload.cpmContainers.list.size > 0)
     {
-        for (int i = 0; i < asn1->payload.cpmContainers.list.count; ++i)
+        for (long i = 0; i < asn1->payload.cpmContainers.list.count; ++i)
         {
 
             const Vanetza_ITS2_WrappedCpmContainer_t* asn1_wrapped_cont = asn1->payload.cpmContainers.list.array[i];
@@ -51,8 +51,8 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
             // Originating Vehicle
             case 1:
                 
-                wrapped_cont.container_data.originating_vehicle_container.orientation_angle.value.value = asn1_wrapped_cont->containerData.choice.OriginatingVehicleContainer.orientationAngle.value;
-                wrapped_cont.container_data.originating_vehicle_container.orientation_angle.confidence.value = asn1_wrapped_cont->containerData.choice.OriginatingVehicleContainer.orientationAngle.confidence;
+                wrapped_cont.container_data_originating_vehicle_container.orientation_angle.value.value = asn1_wrapped_cont->containerData.choice.OriginatingVehicleContainer.orientationAngle.value;
+                wrapped_cont.container_data_originating_vehicle_container.orientation_angle.confidence.value = asn1_wrapped_cont->containerData.choice.OriginatingVehicleContainer.orientationAngle.confidence;
 
                 //TODO: optionals
                 //
@@ -66,7 +66,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
             case 2:
                 
                 if(asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->present){
-                    wrapped_cont.container_data.originating_rsu_container.map_reference_is_present = true;
+                    wrapped_cont.container_data_originating_rsu_container.map_reference_is_present = true;
                     
                     switch (asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->present)
                     {
@@ -74,22 +74,22 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
                         break;
 
                     case Vanetza_ITS2_MapReference_PR_roadsegment:
-                        wrapped_cont.container_data.originating_rsu_container.map_reference.choice = Vanetza_ITS2_MapReference_PR_roadsegment;
-                        wrapped_cont.container_data.originating_rsu_container.map_reference.roadsegment.id.value = asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.roadsegment.id;
+                        wrapped_cont.container_data_originating_rsu_container.map_reference.choice = Vanetza_ITS2_MapReference_PR_roadsegment;
+                        wrapped_cont.container_data_originating_rsu_container.map_reference.roadsegment.id.value = asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.roadsegment.id;
 
                         if(asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.roadsegment.region){
-                            wrapped_cont.container_data.originating_rsu_container.map_reference.roadsegment.region_is_present =  true;
-                            wrapped_cont.container_data.originating_rsu_container.map_reference.roadsegment.region.value = static_cast<short unsigned int>(*asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.roadsegment.region);
+                            wrapped_cont.container_data_originating_rsu_container.map_reference.roadsegment.region_is_present =  true;
+                            wrapped_cont.container_data_originating_rsu_container.map_reference.roadsegment.region.value = static_cast<short unsigned int>(*asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.roadsegment.region);
                         }
                         break;
 
                     case Vanetza_ITS2_MapReference_PR_intersection:
-                        wrapped_cont.container_data.originating_rsu_container.map_reference.choice = Vanetza_ITS2_MapReference_PR_intersection;
-                        wrapped_cont.container_data.originating_rsu_container.map_reference.intersection.id.value = asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.intersection.id;
+                        wrapped_cont.container_data_originating_rsu_container.map_reference.choice = Vanetza_ITS2_MapReference_PR_intersection;
+                        wrapped_cont.container_data_originating_rsu_container.map_reference.intersection.id.value = asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.intersection.id;
 
                         if(asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.intersection.region){
-                            wrapped_cont.container_data.originating_rsu_container.map_reference.intersection.region_is_present =  true;
-                            wrapped_cont.container_data.originating_rsu_container.map_reference.intersection.region.value = static_cast<short unsigned int>(*asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.intersection.region);
+                            wrapped_cont.container_data_originating_rsu_container.map_reference.intersection.region_is_present =  true;
+                            wrapped_cont.container_data_originating_rsu_container.map_reference.intersection.region.value = static_cast<short unsigned int>(*asn1_wrapped_cont->containerData.choice.OriginatingRsuContainer.mapReference->choice.intersection.region);
                         }
 
                         break;
@@ -118,7 +118,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
                     // perceptionRegionShape		Shape OPTIONAL,
                     // perceptionRegionConfidence  ConfidenceLevel OPTIONAL,
                     
-                    wrapped_cont.container_data.sensor_information_container.array.push_back(sensor_info);
+                    wrapped_cont.container_data_sensor_information_container.array.push_back(sensor_info);
                 }  
 
                 break;
@@ -268,7 +268,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
                     // numberOfPerceivedObjects     CardinalNumber1B OPTIONAL,
                     // perceivedObjectIds           PerceivedObjectIds OPTIONAL,
 
-                    wrapped_cont.container_data.perception_region_container.array.push_back(perception_region);
+                    wrapped_cont.container_data_perception_region_container.array.push_back(perception_region);
                 }
                 
                 break;
@@ -276,7 +276,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
             // Perceived Object
             case 5:
                 
-                wrapped_cont.container_data.perceived_object_container.number_of_perceived_objects.value = asn1_wrapped_cont->containerData.choice.PerceivedObjectContainer.numberOfPerceivedObjects;
+                wrapped_cont.container_data_perceived_object_container.number_of_perceived_objects.value = asn1_wrapped_cont->containerData.choice.PerceivedObjectContainer.numberOfPerceivedObjects;
 
                 for(int j = 0; j < asn1_wrapped_cont->containerData.choice.PerceivedObjectContainer.perceivedObjects.list.count; j++)
                 {  
@@ -318,7 +318,7 @@ boost::shared_ptr<etsi_its_cpm_ts_msgs::msg::CollectivePerceptionMessage> conver
                     // classification                                    ObjectClassDescription OPTIONAL,
                     // mapPosition                                       MapPosition OPTIONAL,
 
-                    wrapped_cont.container_data.perceived_object_container.perceived_objects.array.push_back(perceived_object);
+                    wrapped_cont.container_data_perceived_object_container.perceived_objects.array.push_back(perceived_object);
                 }
 
                 break;
