@@ -96,7 +96,7 @@ ros2 launch v2x_stack services_launch.py
 ### Running the V2X Services
 To launch the V2X services, use:
 ```bash
-ros2 launch v2x_stack services_launch.py
+ros2 launch v2x_stack_btp services_launch.py
 ```
 
 ### Adding New Services
