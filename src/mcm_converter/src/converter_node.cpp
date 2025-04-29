@@ -24,7 +24,8 @@ private:
   void topic_callback(const std_msgs::msg::String::SharedPtr msg) {
     RCLCPP_INFO(this->get_logger(), "Empfange ROS2 Nachricht: '%s'", msg->data.c_str());
 
-    // Dummy-Daten erzeugen (hier müsste eigentlich dein Mapping von ROS2 → ASN1-Struktur stehen)
+    // Dummy-Daten erzeugen... hier müsste eigentlich unser Mapping von ROS2 zyu ASN1-Struktur stehen
+    
     MCM_t mcm{};
     mcm.header.protocolVersion = 1;
     mcm.header.messageID = 42;
@@ -38,7 +39,6 @@ private:
       RCLCPP_ERROR(this->get_logger(), "Encoding fehlgeschlagen.");
     } else {
       RCLCPP_INFO(this->get_logger(), "MCM erfolgreich in ASN.1 PER kodiert (%ld bit)", ec.encoded);
-      // (Optional) Hier könntest du das `buffer` weiterverwenden oder speichern
     }
   }
 
