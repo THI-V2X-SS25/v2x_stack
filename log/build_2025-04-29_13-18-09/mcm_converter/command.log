@@ -1,0 +1,2 @@
+Invoking command in '/home/vboxuser/ros2_ws/build/mcm_converter': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter
+Invoked command in '/home/vboxuser/ros2_ws/build/mcm_converter' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter

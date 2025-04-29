@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>mcm_converter</name>
+  <version>0.0.1</version>
+  <description>ROS2 zu ASN.1 Converter fOR MCM</description>
+
+  <maintainer email="marcel@example.com">Marcel</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+
+</package>
+

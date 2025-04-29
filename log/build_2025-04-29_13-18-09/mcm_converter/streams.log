@@ -1,0 +1,28 @@
+[0.019s] Invoking command in '/home/vboxuser/ros2_ws/build/mcm_converter': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter
+[0.038s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.273s] -- Found rclcpp: 28.1.8 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.305s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.314s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.322s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.334s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.394s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.397s] -- Found rmw_fastrtps_cpp: 8.4.2 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.471s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.521s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[0.600s] -- Configuring done (0.6s)
+[0.602s] [31mCMake Error at CMakeLists.txt:13 (add_executable):
+[0.602s]   Cannot find source file:
+[0.602s] 
+[0.603s]     asn1/generated/MCM.c
+[0.603s] 
+[0.603s]   Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm
+[0.603s]   .ccm .cxxm .c++m .h .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90
+[0.603s]   .f95 .f03 .hip .ispc
+[0.603s] 
+[0.603s] [0m
+[0.604s] [31mCMake Error at CMakeLists.txt:13 (add_executable):
+[0.604s]   No SOURCES given to target: converter_node
+[0.604s] 
+[0.604s] [0m
+[0.604s] [0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m
+[0.626s] Invoked command in '/home/vboxuser/ros2_ws/build/mcm_converter' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter

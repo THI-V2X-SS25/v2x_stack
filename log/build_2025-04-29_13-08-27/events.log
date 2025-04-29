@@ -1,0 +1,73 @@
+[0.000000] (-) TimerEvent: {}
+[0.000184] (mcm_converter) JobQueued: {'identifier': 'mcm_converter', 'dependencies': OrderedDict()}
+[0.000243] (mcm_converter) JobStarted: {'identifier': 'mcm_converter'}
+[0.010821] (mcm_converter) JobProgress: {'identifier': 'mcm_converter', 'progress': 'cmake'}
+[0.012151] (mcm_converter) Command: {'cmd': ['/usr/bin/cmake', '/home/vboxuser/ros2_ws/src/mcm_converter', '-DCATKIN_INSTALL_INTO_PREFIX_ROOT=0', '-DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter'], 'cwd': '/home/vboxuser/ros2_ws/build/mcm_converter', 'env': OrderedDict({'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'vboxuser', 'XDG_SESSION_TYPE': 'wayland', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'HOME': '/home/vboxuser', 'OLDPWD': '/home/vboxuser', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SYSTEMD_EXEC_PID': '1999', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'jazzy', 'LOGNAME': 'vboxuser', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'vboxuser', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'PATH': '/opt/ros/jazzy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/ubuntu:@/tmp/.ICE-unix/1949,unix/ubuntu:/tmp/.ICE-unix/1949', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/ed0915cf_44fa_4d3c_97d3_247046f1a107', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.278Y52', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.crdownload=00;90:*.dpkg-dist=00;90:*.dpkg-new=00;90:*.dpkg-old=00;90:*.dpkg-tmp=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:*.swp=00;90:*.tmp=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:', 'GNOME_TERMINAL_SERVICE': ':1.118', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/vboxuser/ros2_ws/build/mcm_converter', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'VTE_VERSION': '7600', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor'}), 'shell': False}
+[0.114403] (-) TimerEvent: {}
+[0.216821] (-) TimerEvent: {}
+[0.318030] (-) TimerEvent: {}
+[0.421510] (-) TimerEvent: {}
+[0.446765] (mcm_converter) StdoutLine: {'line': b'-- The C compiler identification is GNU 13.3.0\n'}
+[0.522457] (-) TimerEvent: {}
+[0.625115] (-) TimerEvent: {}
+[0.719016] (mcm_converter) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 13.3.0\n'}
+[0.726833] (-) TimerEvent: {}
+[0.764621] (mcm_converter) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.827243] (-) TimerEvent: {}
+[0.908425] (mcm_converter) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.915752] (mcm_converter) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.916873] (mcm_converter) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.918001] (mcm_converter) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.928869] (-) TimerEvent: {}
+[0.936387] (mcm_converter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.030385] (-) TimerEvent: {}
+[1.059226] (mcm_converter) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.059593] (mcm_converter) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.059677] (mcm_converter) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.059772] (mcm_converter) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.086029] (mcm_converter) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[1.161362] (-) TimerEvent: {}
+[1.262095] (-) TimerEvent: {}
+[1.275697] (mcm_converter) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.363787] (-) TimerEvent: {}
+[1.465270] (-) TimerEvent: {}
+[1.495650] (mcm_converter) StdoutLine: {'line': b'-- Found rclcpp: 28.1.8 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[1.566589] (-) TimerEvent: {}
+[1.630533] (mcm_converter) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[1.664600] (mcm_converter) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[1.667318] (-) TimerEvent: {}
+[1.723372] (mcm_converter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.766731] (mcm_converter) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.767444] (-) TimerEvent: {}
+[1.867777] (-) TimerEvent: {}
+[1.929546] (mcm_converter) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[1.936976] (mcm_converter) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.2 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.968190] (-) TimerEvent: {}
+[2.068853] (-) TimerEvent: {}
+[2.086818] (mcm_converter) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  \n'}
+[2.111377] (mcm_converter) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") \n'}
+[2.134050] (mcm_converter) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[2.168952] (-) TimerEvent: {}
+[2.269620] (-) TimerEvent: {}
+[2.301926] (mcm_converter) StdoutLine: {'line': b'-- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)\n'}
+[2.369816] (-) TimerEvent: {}
+[2.441613] (mcm_converter) StdoutLine: {'line': b'-- Configuring done (2.4s)\n'}
+[2.444502] (mcm_converter) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:13 (add_executable):\n'}
+[2.444677] (mcm_converter) StderrLine: {'line': b'  Cannot find source file:\n'}
+[2.444723] (mcm_converter) StderrLine: {'line': b'\n'}
+[2.444759] (mcm_converter) StderrLine: {'line': b'    asn1/generated/MCM.c\n'}
+[2.444794] (mcm_converter) StderrLine: {'line': b'\n'}
+[2.444828] (mcm_converter) StderrLine: {'line': b'  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm\n'}
+[2.444862] (mcm_converter) StderrLine: {'line': b'  .ccm .cxxm .c++m .h .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90\n'}
+[2.444936] (mcm_converter) StderrLine: {'line': b'  .f95 .f03 .hip .ispc\n'}
+[2.444984] (mcm_converter) StderrLine: {'line': b'\n'}
+[2.445019] (mcm_converter) StderrLine: {'line': b'\x1b[0m\n'}
+[2.447029] (mcm_converter) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:13 (add_executable):\n'}
+[2.447167] (mcm_converter) StderrLine: {'line': b'  No SOURCES given to target: converter_node\n'}
+[2.447350] (mcm_converter) StderrLine: {'line': b'\n'}
+[2.447399] (mcm_converter) StderrLine: {'line': b'\x1b[0m\n'}
+[2.447445] (mcm_converter) StderrLine: {'line': b'\x1b[0mCMake Generate step failed.  Build files cannot be regenerated correctly.\x1b[0m\n'}
+[2.461895] (mcm_converter) CommandEnded: {'returncode': 1}
+[2.469987] (-) TimerEvent: {}
+[2.489768] (mcm_converter) JobEnded: {'identifier': 'mcm_converter', 'rc': 1}
+[2.500971] (-) EventReactorShutdown: {}

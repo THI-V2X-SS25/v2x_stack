@@ -1,0 +1,43 @@
+[0.013s] Invoking command in '/home/vboxuser/ros2_ws/build/mcm_converter': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter
+[0.445s] -- The C compiler identification is GNU 13.3.0
+[0.718s] -- The CXX compiler identification is GNU 13.3.0
+[0.763s] -- Detecting C compiler ABI info
+[0.907s] -- Detecting C compiler ABI info - done
+[0.914s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.916s] -- Detecting C compile features
+[0.917s] -- Detecting C compile features - done
+[0.935s] -- Detecting CXX compiler ABI info
+[1.058s] -- Detecting CXX compiler ABI info - done
+[1.058s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.058s] -- Detecting CXX compile features
+[1.058s] -- Detecting CXX compile features - done
+[1.085s] -- Found ament_cmake: 2.5.3 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.274s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[1.494s] -- Found rclcpp: 28.1.8 (/opt/ros/jazzy/share/rclcpp/cmake)
+[1.629s] -- Found rosidl_generator_c: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[1.663s] -- Found rosidl_generator_cpp: 4.6.5 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[1.722s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.765s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.928s] -- Found rmw_implementation_cmake: 7.3.2 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[1.936s] -- Found rmw_fastrtps_cpp: 8.4.2 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[2.085s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.13")  
+[2.110s] -- Found FastRTPS: /opt/ros/jazzy/include (Required is at least version "2.13") 
+[2.133s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.301s] -- Found std_msgs: 5.3.6 (/opt/ros/jazzy/share/std_msgs/cmake)
+[2.440s] -- Configuring done (2.4s)
+[2.443s] [31mCMake Error at CMakeLists.txt:13 (add_executable):
+[2.443s]   Cannot find source file:
+[2.443s] 
+[2.443s]     asn1/generated/MCM.c
+[2.443s] 
+[2.443s]   Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm
+[2.443s]   .ccm .cxxm .c++m .h .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90
+[2.443s]   .f95 .f03 .hip .ispc
+[2.443s] 
+[2.444s] [0m
+[2.446s] [31mCMake Error at CMakeLists.txt:13 (add_executable):
+[2.446s]   No SOURCES given to target: converter_node
+[2.446s] 
+[2.446s] [0m
+[2.446s] [0mCMake Generate step failed.  Build files cannot be regenerated correctly.[0m
+[2.461s] Invoked command in '/home/vboxuser/ros2_ws/build/mcm_converter' returned '1': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/vboxuser/ros2_ws/src/mcm_converter -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCMAKE_INSTALL_PREFIX=/home/vboxuser/ros2_ws/install/mcm_converter
