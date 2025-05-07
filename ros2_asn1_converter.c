@@ -1,5 +1,5 @@
 #include <ros_etsi_its_msgs/msg/cam.hpp>
-#include <etsi_its_cam/asn_CAM.h> // Beispielpfad, passe ggf. an
+#include <etsi_its_cam/asn_CAM.h> // test pfad
 #include <cstdlib>
 #include <cstring>
 
@@ -17,18 +17,18 @@ inline uint8_t reverse_byte(uint8_t byte)
     return byte;
 }
 
-} // namespace
+}
 
 asn_CAM_t* convertCam(const ros_etsi_its_msgs::msg::CAM::ConstSharedPtr& ptr)
 {
     auto* msg = static_cast<asn_CAM_t*>(calloc(1, sizeof(asn_CAM_t)));
 
-    // === Header ===
+    // header
     msg->header.protocolVersion = ptr->its_header.protocol_version;
     msg->header.messageID = ptr->its_header.message_id;
     msg->header.stationID = ptr->its_header.station_id;
 
-    // === CAM Payload ===
+    // CAM payload
     msg->cam.generationDeltaTime = ptr->generation_delta_time;
 
     auto& basic = msg->cam.camParameters.basicContainer;
@@ -104,6 +104,5 @@ asn_CAM_t* convertCam(const ros_etsi_its_msgs::msg::CAM::ConstSharedPtr& ptr)
 
     return msg;
 }
-
-} // namespace v2x_stack_btp
+}
 
