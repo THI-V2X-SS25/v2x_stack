@@ -15,7 +15,8 @@ void CaRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Indication MC");
     if (indication->btp_type == msg::BtpDataIndication::BTP_TYPE_B && indication->destination_port == 2020)  // port tbd.
     {
-        vanetza::asn1::r1::Mcm mcm;
+        //vanetza::asn1::r1::Mcm mcm;
+        etsi_its_mcm_thi_prima_coding::asn_MCM mcm;
         const std::vector<unsigned char>& payload = indication->data;
         const uint8_t* buffer = payload.data();
 
@@ -33,7 +34,8 @@ void CaRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
     }
 }
 
-void CaRxNode::publish(const vanetza::asn1::r1::Mcm asn1)
+//void CaRxNode::publish(const vanetza::asn1::r1::Mcm asn1)
+void CaRxNode::publish(const etsi_its_mcm_thi_prima_coding::asn_MCM asn1)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Entering publish method");
     std::string error_msg;
