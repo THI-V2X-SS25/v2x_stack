@@ -233,6 +233,42 @@ install(TARGETS ${PROJECT_NAME}_cp_ts_node
     DESTINATION lib/${PROJECT_NAME}
 )
 
+##MCM
+# Add executable
+add_executable(${PROJECT_NAME}_mc_node
+    src/mc_message.cpp
+    src/mc_rx.cpp
+)
+
+# Include directories for the executable
+target_include_directories(${PROJECT_NAME}_mc_node
+    PUBLIC
+    include
+    ${v2x_stack_INCLUDE_DIRS}
+    ${ros_etsi_its_msgs_INCLUDE_DIRS}
+)
+
+# Link against dependencies
+ament_target_dependencies(${PROJECT_NAME}_mc_node
+    rclcpp
+    rclcpp_components
+    std_msgs
+    #v2x_stack
+    ros_etsi_its_msgs
+)
+
+# Link against generated messages
+rosidl_target_interfaces(${PROJECT_NAME}_mc_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# Link against Vanetza libraries
+target_link_libraries(${PROJECT_NAME}_mc_node Vanetza::asn1 Vanetza::facilities)
+
+
+# Install targets
+install(TARGETS ${PROJECT_NAME}_mc_node
+    DESTINATION lib/${PROJECT_NAME}
+)
+
 
 
 # Install include files
