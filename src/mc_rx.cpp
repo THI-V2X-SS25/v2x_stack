@@ -13,7 +13,7 @@ CaRxNode::CaRxNode(const rclcpp::NodeOptions & options)
 void CaRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Indication MC");
-    if (indication->btp_type == msg::BtpDataIndication::BTP_TYPE_B && indication->destination_port == 2001)  // port tbd.
+    if (indication->btp_type == msg::BtpDataIndication::BTP_TYPE_B && indication->destination_port == 2020)  // port tbd.
     {
         vanetza::asn1::r1::Mcm mcm;
         const std::vector<unsigned char>& payload = indication->data;
