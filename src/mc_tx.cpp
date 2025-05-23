@@ -41,7 +41,7 @@ void CaRxNode::publish()
     // add timestamp 
     //msg->mcm.generation_delta_time = deltaTime;
     auto& basic_container = msg->mcm.mcm_parameters.basic_container_mcm;
-    basic_container.station_type.value = 5; // 5 = Pessenger car
+    basic_container.station_type.value = 5; // 5 = Passenger car
     basic_container.reference_position.latitude.value = position_->latitude;
     basic_container.reference_position.longitude.value = position_->longitude;
     basic_container.reference_position.altitude.altitude_value.value = position_->altitude;
@@ -58,7 +58,7 @@ void CaRxNode::publish()
     // publish the message
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Try to Publish tx_MCM");
     node_ = std::make_shared<rclcpp::Node>("mcm_tx");
-    pub_mcm_ = node_->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("mcm_tx", 20);
+    pub_mcm_ = node_->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("mcm_transmitted", 20);
     pub_mcm_->publish(*msg);
     
 }
