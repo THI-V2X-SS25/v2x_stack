@@ -15,9 +15,10 @@
   <depend>std_msgs</depend>
   <depend>rclcpp_components</depend>  
   <depend>ros_etsi_its_msgs</depend>
-  <depend>etsi_its_msgs</depend>   <!-- Ros etsi msgs from RWTH Aachen -->
+  <depend>etsi_its_mcm_thi_prima_msgs</depend>   <!-- Ros etsi msgs from RWTH Aachen -->
   <depend>udp_msgs</depend>
-
+  <depend>etsi_its_mcm_thi_prima_coding</depend>
+ 
   <!-- Test dependencies -->
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

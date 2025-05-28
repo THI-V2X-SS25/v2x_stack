@@ -12,6 +12,8 @@ find_package(etsi_its_msgs REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(udp_msgs REQUIRED)
+find_package(etsi_its_mcm_thi_prima_msgs REQUIRED)
+find_package(etsi_its_mcm_thi_prima_coding REQUIRED)
 
 set(VANETZA_INSTALL ON)
 set(VANETZA_EXPORT_PACKAGE OFF)
@@ -236,7 +238,6 @@ install(TARGETS ${PROJECT_NAME}_cp_ts_node
 ##MCM
 # Add executable
 add_executable(${PROJECT_NAME}_mc_node
-    src/mc_message.cpp
     #src/mc_rx.cpp
     src/mc_tx.cpp
 )
@@ -256,6 +257,9 @@ ament_target_dependencies(${PROJECT_NAME}_mc_node
     std_msgs
     #v2x_stack
     ros_etsi_its_msgs
+    sensor_msgs
+    etsi_its_mcm_thi_prima_msgs
+    etsi_its_mcm_thi_prima_coding
 )
 
 # Link against generated messages
@@ -264,6 +268,7 @@ rosidl_target_interfaces(${PROJECT_NAME}_mc_node ${PROJECT_NAME} "rosidl_typesup
 # Link against Vanetza libraries
 target_link_libraries(${PROJECT_NAME}_mc_node Vanetza::asn1 Vanetza::facilities)
 
+#target_link_libraries(${PROJECT_NAME}_mc_node ${etsi_its_mcm_thi_prima_msgs TARGETS})
 
 # Install targets
 install(TARGETS ${PROJECT_NAME}_mc_node
