@@ -237,7 +237,8 @@ install(TARGETS ${PROJECT_NAME}_cp_ts_node
 # Add executable
 add_executable(${PROJECT_NAME}_mc_node
     src/mc_message.cpp
-    src/mc_rx.cpp
+    #src/mc_rx.cpp
+    src/mc_tx.cpp
 )
 
 # Include directories for the executable
