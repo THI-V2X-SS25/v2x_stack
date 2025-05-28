@@ -11,7 +11,7 @@ CaRxNode::CaRxNode(const rclcpp::NodeOptions & options)
 void CaRxNode::onPosition(sensor_msgs::msg::NavSatFix::ConstSharedPtr position)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Position MC");
-    if (position->status.status =!= sensor_msgs::msg::NavSatStatus::STATUS_NO_FIX)
+    if (position->status.status != sensor_msgs::msg::NavSatStatus::STATUS_NO_FIX)
     {
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Well decoded position");
         position_ = position;
