@@ -1,5 +1,5 @@
 #include <boost/make_shared.hpp>
-#include <etsi_its_msgs/msg/mcm.hpp>
+#include <etsi_its_mcm_thi_prima_msgs/msg/mcm.hpp>
 #include <etsi_its_mcm_thi_prima_coding/asn_MCM.h>
 
 
@@ -24,14 +24,14 @@ inline uint8_t reverse_byte(uint8_t byte)
     Convert ASN1 asn_MCM.h (etsi_its_messages/etsi_its_coding/etsi_its_mcm_thi_prima_coding/include/etsi_its_mcm_thi_prima_coding/asn_MCM.h) to ROS2 mcm.msg (etsi_its_messages/etsi_its_msgs/etsi_its_mcm_thi_prima_msgs/msg/MCM.msg)
     based on the example of ca_message.cpp (v2x_stack/src/ca_message.cpp) with CAM.msg (ros2_etsi_its_msgs/msg/CAM.msg) and CAM.h (v2x_stack/extern/vanetza/vanetza/asn1/its/CAM.h)
  */
-boost::shared_ptr<etsi_its_msgs::msg::MCM> convertMCM(const etsi_its_messages::etsi_its_coding::r1::MCM* asn1, std::string* error_msg)
+boost::shared_ptr<etsi_its_mcm_thi_prima_msgs::msg::MCM> convertMCM(const asn_MCM* asn1, std::string* error_msg)
 {
-  auto msg = boost::make_shared<etsi_its_msgs::msg::MCM>();
+  auto msg = boost::make_shared<etsi_its_mcm_thi_prima_msgs::msg::MCM>();
 
   //ItsPduHeader
   msg->header.protocol_version = asn1->header.protocolVersion;
   msg->header.message_id = asn1->header.messageID;
-  msg->header.station_id = asn1->header.stationID;
+  msg->header.station_id.value = asn1->header.stationID;        // copy on value of stationID, not its self
 
   //ManeuverCoordinationMessage
   msg->mcm.generation_delta_time = asn1->mcm.generationDeltaTime;
@@ -90,4 +90,5 @@ boost::shared_ptr<etsi_its_msgs::msg::MCM> convertMCM(const etsi_its_messages::e
   intention_sharing_container.lane_position.value = intentionSharingContainer.lanePosition;
 
   return msg;
+}
 }

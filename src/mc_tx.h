@@ -1,4 +1,4 @@
-#include <rlcpp/rclcpp.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/nav_sat_fix.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <etsi_its_mcm_thi_prima_msgs/msg/mcm.hpp>
@@ -15,10 +15,9 @@ public:
     void onHeading(const std_msgs::msg::Float64::ConstSharedPtr);
     void onVelocity(const std_msgs::msg::Float64::ConstSharedPtr);
 
+    void publish(); // private or public? 
 
 private:
-
-    void publish();
 
     rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr sub_navsat_fix_;
     rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr sub_heading_;
@@ -30,6 +29,6 @@ private:
 
     std::shared_ptr<rclcpp::Publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>> pub_mcm_;
     rclcpp::Node::SharedPtr node_;
-}
+};
 
 }

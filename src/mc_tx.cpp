@@ -62,20 +62,20 @@ void CaRxNode::publish()
     pub_mcm_->publish(*msg);
     
 }
-
+}
 
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting MC TX node");
 
-    auto node = std::make_shared<CaRxNode>(rclcpp::NodeOptions());
+    auto node = std::make_shared<v2x_stack_btp::CaRxNode>(rclcpp::NodeOptions());
     auto sub_navsat_fix = node->create_subscription<sensor_msgs::msg::NavSatFix>(
-        "/adma/fix", 20, std::bind(&v2x_stack_btp::&CaRxNode::onPosition, node, std::placeholders::_1));
+        "/adma/fix", 20, std::bind(&v2x_stack_btp::CaRxNode::onPosition, node, std::placeholders::_1));
     auto sub_heading = node->create_subscription<std_msgs::msg::Float64>(
-        "/adma/heading", 20, std::bind(&v2x_stack_btp::&CaRxNode::onHeading, node, std::placeholders::_1));
+        "/adma/heading", 20, std::bind(&v2x_stack_btp::CaRxNode::onHeading, node, std::placeholders::_1));
     auto sub_velocity = node->create_subscription<std_msgs::msg::Float64>(
-        "/adma/velocity", 20, std::bind(&v2x_stack_btp::&CaRxNode::onVelocity, node, std::placeholders::_1));
+        "/adma/velocity", 20, std::bind(&v2x_stack_btp::CaRxNode::onVelocity, node, std::placeholders::_1));
     
     // timer to publish MCM
     auto timer = node->create_wall_timer(
@@ -86,5 +86,4 @@ int main(int argc, char **argv)
     rclcpp::shutdown();
     return 0;
 
-}
 }
