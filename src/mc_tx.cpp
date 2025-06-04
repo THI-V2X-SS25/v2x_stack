@@ -37,31 +37,36 @@ void CaRxNode::onVelocity(std_msgs::msg::Float64::ConstSharedPtr velocity)
 
 void CaRxNode::publish()
 {
+    if (!position_ || !heading_ || !velocity_) {
+        RCLCPP_WARN(this->get_logger(), "Not all data available yet. Skipping publish.");
+        return;
+    }
+
     auto msg = std::make_shared<etsi_its_mcm_thi_prima_msgs::msg::MCM>();
+
     // add timestamp 
-    //msg->mcm.generation_delta_time = deltaTime;
     auto& basic_container = msg->mcm.mcm_parameters.basic_container_mcm;
-    basic_container.station_type.value = 5; // 5 = Passenger car
+    basic_container.station_type.value = 5;
     basic_container.reference_position.latitude.value = position_->latitude;
     basic_container.reference_position.longitude.value = position_->longitude;
     basic_container.reference_position.altitude.altitude_value.value = position_->altitude;
-    basic_container.reference_position.altitude.altitude_confidence.value = 15; // unavailable  !!!!pls change!!!
+    basic_container.reference_position.altitude.altitude_confidence.value = 15;
 
     auto& intention_sharing_container = msg->mcm.mcm_parameters.intention_sharing_container;
     intention_sharing_container.heading.heading_value.value = heading_->data;
-    intention_sharing_container.heading.heading_confidence.value = 127; // unavailable  !!!!pls change!!!
+    intention_sharing_container.heading.heading_confidence.value = 127;
     intention_sharing_container.speed.speed_value.value = velocity_->data;
-    intention_sharing_container.speed.speed_confidence.value = 127; // unavailable  !!!!pls change!!!
-    intention_sharing_container.drive_direction.value = 0; // forward
-
+    intention_sharing_container.speed.speed_confidence.value = 127;
+    intention_sharing_container.drive_direction.value = 0;
 
     // publish the message
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Try to Publish tx_MCM");
-    node_ = std::make_shared<rclcpp::Node>("mcm_tx");
-    pub_mcm_ = node_->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("mcm_transmitted", 20);
+    RCLCPP_INFO(this->get_logger(), "Publishing MCM message");
+    if (!pub_mcm_) {
+        pub_mcm_ = this->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("mcm_transmitted", 20);
+    }
     pub_mcm_->publish(*msg);
-    
 }
+
 }
 
 int main(int argc, char **argv)
@@ -71,11 +76,11 @@ int main(int argc, char **argv)
 
     auto node = std::make_shared<v2x_stack_btp::CaRxNode>(rclcpp::NodeOptions());
     auto sub_navsat_fix = node->create_subscription<sensor_msgs::msg::NavSatFix>(
-        "/adma/fix", 20, std::bind(&v2x_stack_btp::CaRxNode::onPosition, node, std::placeholders::_1));
+        "/genesys/adma/fix", 20, std::bind(&v2x_stack_btp::CaRxNode::onPosition, node, std::placeholders::_1));
     auto sub_heading = node->create_subscription<std_msgs::msg::Float64>(
-        "/adma/heading", 20, std::bind(&v2x_stack_btp::CaRxNode::onHeading, node, std::placeholders::_1));
+        "/genesys/adma/heading", 20, std::bind(&v2x_stack_btp::CaRxNode::onHeading, node, std::placeholders::_1));
     auto sub_velocity = node->create_subscription<std_msgs::msg::Float64>(
-        "/adma/velocity", 20, std::bind(&v2x_stack_btp::CaRxNode::onVelocity, node, std::placeholders::_1));
+        "/genesys/adma/velocity", 20, std::bind(&v2x_stack_btp::CaRxNode::onVelocity, node, std::placeholders::_1));
     
     // timer to publish MCM
     auto timer = node->create_wall_timer(
