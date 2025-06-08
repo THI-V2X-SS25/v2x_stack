@@ -1,7 +1,7 @@
 #include <boost/make_shared.hpp>
 #include <etsi_its_mcm_thi_prima_msgs/msg/mcm.hpp>
 #include <etsi_its_mcm_thi_prima_coding/asn_MCM.h>
-
+#include <etsi_its_mcm_thi_prima_msgs/msg/path_point.hpp>
 
 namespace etsi_its_messages_btp
 {
@@ -34,40 +34,40 @@ boost::shared_ptr<etsi_its_mcm_thi_prima_msgs::msg::MCM> convertMCM(const asn_MC
   msg->header.station_id.value = asn1->header.stationID;        // copy on value of stationID, not its self
 
   //ManeuverCoordinationMessage
-  msg->mcm.generation_delta_time = asn1->mcm.generationDeltaTime;
+  msg->mcm.generation_delta_time.value = asn1->mcm.generationDeltaTime;
 
   //ManeuverCoordinationMessage --> Parameters --> Basic Container
-  const auto& basic_container = msg->mcm.mcm_parameters.basic_container_mcm; //ROS2
-  const auto& basicContainerMCM = asn1->mcm.mcmParameters.basicContainerMCM; //ASN1
+  auto& basic_container = msg->mcm.mcm_parameters.basic_container_mcm; //ROS2
+  auto& basicContainerMCM = asn1->mcm.mcmParameters.basicContainerMCM; //ASN1
   basic_container.station_type.value = basicContainerMCM.stationType;
   basic_container.reference_position.latitude.value = basicContainerMCM.referencePosition.latitude;
   basic_container.reference_position.longitude.value = basicContainerMCM.referencePosition.longitude;
   basic_container.reference_position.position_confidence_ellipse.semi_major_confidence.value = basicContainerMCM.referencePosition.positionConfidenceEllipse.semiMajorConfidence;
   basic_container.reference_position.position_confidence_ellipse.semi_minor_confidence.value = basicContainerMCM.referencePosition.positionConfidenceEllipse.semiMinorConfidence;
   basic_container.reference_position.position_confidence_ellipse.semi_major_orientation.value = basicContainerMCM.referencePosition.positionConfidenceEllipse.semiMajorOrientation;
-  basic_container.reference_position.altitude_value.value = basicContainerMCM.referencePosition.altitudeValue;
-  basic_container.reference_position.altitude_confidence.value = basicContainerMCM.referencePosition.altitudeConfidence;
+  basic_container.reference_position.altitude.altitude_value.value = basicContainerMCM.referencePosition.altitude.altitudeValue;
+  basic_container.reference_position.altitude.altitude_confidence.value = basicContainerMCM.referencePosition.altitude.altitudeConfidence;
 
   //ManeuverCoordinationMessage --> Parameters --> intentionSharingContainer
-  const auto& intention_sharing_container = msg->mcm.mcm_parameters.intention_sharing_container; //ROS2
-  const auto& intentionSharingContainer = asn1->mcm.mcm_parameters.intentionSharingContainer; //ASN1
+  auto& intention_sharing_container = msg->mcm.mcm_parameters.intention_sharing_container; //ROS2
+  auto& intentionSharingContainer = asn1->mcm.mcmParameters.intentionSharingContainer; //ASN1
 
   for (int i = 0; i < intentionSharingContainer.plannedTrajectory.list.count; ++i)
   {
-      const PathPoint_t* asn1_path_point = asn1->mcm.mcmParameters.intentionSharingContainer.plannedTrajectory.list.array[i];
-      etsi_its_msgs::msg::PathPoint path_point;
+      auto& asn1_path_point = asn1->mcm.mcmParameters.intentionSharingContainer.plannedTrajectory.list.array[i];
+      etsi_its_mcm_thi_prima_msgs::msg::TrajectoryPointMCM path_point;
 
-      path_point.delta_longitudinal_position.value = asn1_path_point->deltaLongitudinalPosition.deltaLatitude;
-      path_point.delta_lateral_position.value = asn1_path_point->deltaLateralPosition.deltaLongitude;
-      path_point.delta_heading.value = asn1_path_point->delta_heading.deltaHeading;
+      path_point.delta_longitudinal_position.value = asn1_path_point->deltaLongitudinalPosition;
+      path_point.delta_lateral_position.value = asn1_path_point->deltaLateralPosition;
+      path_point.delta_heading.value = asn1_path_point->deltaHeading;
 
-      path_point.path_delta_time.value = etsi_its_msgs::msg::PathDeltaTime::UNAVAILABLE;
-      if (asn1_path_point->pathDeltaTime)
+      path_point.delta_time.value = 0;
+      if (asn1_path_point->deltaTime)
       {
-          path_point.path_delta_time.value = *(asn1_path_point->pathDeltaTime);
+          path_point.delta_time.value = asn1_path_point->deltaTime;
       }
 
-      msg->mcm.mcm_parameters.intention_sharing_container.planned_trajectory.push_back(path_point);
+      msg->mcm.mcm_parameters.intention_sharing_container.planned_trajectory.array.push_back(path_point);
   }
 
 
@@ -86,8 +86,6 @@ boost::shared_ptr<etsi_its_mcm_thi_prima_msgs::msg::MCM> convertMCM(const asn_MC
 
   intention_sharing_container.vehicle_automation_level.value = intentionSharingContainer.vehicleAutomationLevel;
 
-
-  intention_sharing_container.lane_position.value = intentionSharingContainer.lanePosition;
 
   return msg;
 }
