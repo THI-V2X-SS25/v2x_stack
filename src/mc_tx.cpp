@@ -62,7 +62,7 @@ void CaRxNode::publish()
     // publish the message
     RCLCPP_INFO(this->get_logger(), "Publishing MCM message");
     if (!pub_mcm_) {
-        pub_mcm_ = this->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("mcm_transmitted", 20);
+        pub_mcm_ = this->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("~/mcm_prima/out", 20);
     }
     pub_mcm_->publish(*msg);
 }
