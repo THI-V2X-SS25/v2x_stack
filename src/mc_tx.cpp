@@ -58,10 +58,10 @@ void CaRxNode::publish()
     intention_sharing_container.speed.speed_value.value = velocity_->data;
     intention_sharing_container.speed.speed_confidence.value = 127;
     intention_sharing_container.drive_direction.value = 0;
-    intention_sharing_container.vehicle_length.vegicle_length_value.value = 5.0; // Example length
+    intention_sharing_container.vehicle_length.vehicle_length_value.value = 5.0; // Example length
     intention_sharing_container.vehicle_width.value = 2.0; // Example width
     intention_sharing_container.vehicle_automation_level.value = 0; // Example automation level
-    intention_sharing_container.lane_position_is_present = False
+    intention_sharing_container.lane_position_is_present = false;
 
     auto veh_traj = etsi_its_mcm_thi_prima_msgs::msg::TrajectoryPointMCM();
     veh_traj.delta_longitudinal_position.value = 0;
