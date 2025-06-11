@@ -59,7 +59,7 @@ void CaRxNode::publish()
     intention_sharing_container.speed.speed_confidence.value = 127;
     intention_sharing_container.drive_direction.value = 0;
 
-    veh_traj = TrajectoryPointMCM()
+    auto veh_traj = etsi_its_mcm_thi_prima_msgs::msg::TrajectoryPointMCM()
     veh_traj.delta_longitudinal_position.value = 0
     veh_traj.delta_lateral_position.value = 0
     veh_traj.delta_heading.value = 0
