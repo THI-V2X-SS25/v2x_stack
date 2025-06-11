@@ -59,10 +59,18 @@ void CaRxNode::publish()
     intention_sharing_container.speed.speed_confidence.value = 127;
     intention_sharing_container.drive_direction.value = 0;
 
+    veh_traj = TrajectoryPointMCM()
+    veh_traj.delta_longitudinal_position.value = 0
+    veh_traj.delta_lateral_position.value = 0
+    veh_traj.delta_heading.value = 0
+    veh_traj.delta_time.value = 1
+    
+    intention_sharing_container.planned_trajectory.array.append(veh_traj)
+
     // publish the message
     RCLCPP_INFO(this->get_logger(), "Publishing MCM message");
     if (!pub_mcm_) {
-        pub_mcm_ = this->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("~/mcm_prima/in", 20);
+        pub_mcm_ = this->create_publisher<etsi_its_mcm_thi_prima_msgs::msg::MCM>("/etsi_its_conversion/mcm_thi_prima/in", 20);
     }
     pub_mcm_->publish(*msg);
 }
