@@ -64,8 +64,8 @@ void CaRxNode::publish()
     veh_traj.delta_lateral_position.value = 0;
     veh_traj.delta_heading.value = 0;
     veh_traj.delta_time.value = 1;
-    
-    intention_sharing_container.planned_trajectory.array.append(veh_traj)
+
+    intention_sharing_container.planned_trajectory.array.push_back(veh_traj);
 
     // publish the message
     RCLCPP_INFO(this->get_logger(), "Publishing MCM message");
