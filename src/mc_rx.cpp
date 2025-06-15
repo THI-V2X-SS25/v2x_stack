@@ -1,16 +1,16 @@
-#include "mcm_message_conv.cpp"
+#include "mcm_message_conv.h"
 #include "mc_rx.h"
 #include <vanetza/btp/ports.hpp>
 
 namespace v2x_stack_btp
 {
 
-CaRxNode::CaRxNode(const rclcpp::NodeOptions & options)
+McRxNode::McRxNode(const rclcpp::NodeOptions & options)
 : Node("mc_rx_node", options)
 {
 }
 
-void CaRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
+void McRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Indication MC");
     if (indication->btp_type == msg::BtpDataIndication::BTP_TYPE_B && indication->destination_port == 2020)  // port tbd.
@@ -34,8 +34,7 @@ void CaRxNode::onIndication(msg::BtpDataIndication::ConstSharedPtr indication)
     }
 }
 
-//void CaRxNode::publish(const vanetza::asn1::r1::Mcm asn1)
-void CaRxNode::publish(const asn_MCM asn1)
+void McRxNode::publish(const asn_MCM asn1)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Entering publish method");
     std::string error_msg;
@@ -61,10 +60,10 @@ void CaRxNode::publish(const asn_MCM asn1)
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting MC RX");
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting MC RX node");
 
-    auto node = std::make_shared<v2x_stack_btp::CaRxNode>(rclcpp::NodeOptions());
-    auto subscription = node->create_subscription<v2x_stack_btp::msg::BtpDataIndication>("btp_data", 20, std::bind(&v2x_stack_btp::CaRxNode::onIndication, node, std::placeholders::_1));
+    auto node = std::make_shared<v2x_stack_btp::McRxNode>(rclcpp::NodeOptions());
+    auto subscription = node->create_subscription<v2x_stack_btp::msg::BtpDataIndication>("btp_data", 20, std::bind(&v2x_stack_btp::McRxNode::onIndication, node, std::placeholders::_1));
 
     rclcpp::spin(node);
     rclcpp::shutdown();

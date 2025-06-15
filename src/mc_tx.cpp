@@ -4,11 +4,11 @@
 namespace v2x_stack_btp
 {
 
-CaRxNode::CaRxNode(const rclcpp::NodeOptions & options)
+McTxNode::McTxNode(const rclcpp::NodeOptions & options)
 : Node("mc_tx_node", options){
 }
 
-void CaRxNode::onPosition(sensor_msgs::msg::NavSatFix::ConstSharedPtr position)
+void McTxNode::onPosition(sensor_msgs::msg::NavSatFix::ConstSharedPtr position)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Position MC");
     if (position->status.status != sensor_msgs::msg::NavSatStatus::STATUS_NO_FIX)
@@ -23,19 +23,19 @@ void CaRxNode::onPosition(sensor_msgs::msg::NavSatFix::ConstSharedPtr position)
 
 }
 
-void CaRxNode::onHeading(std_msgs::msg::Float64::ConstSharedPtr heading)
+void McTxNode::onHeading(std_msgs::msg::Float64::ConstSharedPtr heading)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Heading MC");
     heading_ = heading;
 }
 
-void CaRxNode::onVelocity(std_msgs::msg::Float64::ConstSharedPtr velocity)
+void McTxNode::onVelocity(std_msgs::msg::Float64::ConstSharedPtr velocity)
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Velocity MC");
     velocity_ = velocity;
 }
 
-void CaRxNode::publish()
+void McTxNode::publish()
 {
     if (!position_ || !heading_ || !velocity_) {
         RCLCPP_WARN(this->get_logger(), "Not all data available yet. Skipping publish.");
@@ -86,18 +86,18 @@ int main(int argc, char **argv)
     rclcpp::init(argc, argv);
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Starting MC TX node");
 
-    auto node = std::make_shared<v2x_stack_btp::CaRxNode>(rclcpp::NodeOptions());
+    auto node = std::make_shared<v2x_stack_btp::McTxNode>(rclcpp::NodeOptions());
     auto sub_navsat_fix = node->create_subscription<sensor_msgs::msg::NavSatFix>(
-        "/genesys/adma/fix", 20, std::bind(&v2x_stack_btp::CaRxNode::onPosition, node, std::placeholders::_1));
+        "/genesys/adma/fix", 20, std::bind(&v2x_stack_btp::McTxNode::onPosition, node, std::placeholders::_1));
     auto sub_heading = node->create_subscription<std_msgs::msg::Float64>(
-        "/genesys/adma/heading", 20, std::bind(&v2x_stack_btp::CaRxNode::onHeading, node, std::placeholders::_1));
+        "/genesys/adma/heading", 20, std::bind(&v2x_stack_btp::McTxNode::onHeading, node, std::placeholders::_1));
     auto sub_velocity = node->create_subscription<std_msgs::msg::Float64>(
-        "/genesys/adma/velocity", 20, std::bind(&v2x_stack_btp::CaRxNode::onVelocity, node, std::placeholders::_1));
+        "/genesys/adma/velocity", 20, std::bind(&v2x_stack_btp::McTxNode::onVelocity, node, std::placeholders::_1));
     
     // timer to publish MCM
     auto timer = node->create_wall_timer(
         std::chrono::milliseconds(1000),
-        std::bind(&v2x_stack_btp::CaRxNode::publish, node));
+        std::bind(&v2x_stack_btp::McTxNode::publish, node));
 
     rclcpp::spin(node);
     rclcpp::shutdown();

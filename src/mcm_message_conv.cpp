@@ -1,8 +1,4 @@
-#include <boost/make_shared.hpp>
-#include <etsi_its_mcm_thi_prima_msgs/msg/mcm.hpp>
-#include <etsi_its_mcm_thi_prima_coding/asn_MCM.h>
-#include <etsi_its_mcm_thi_prima_msgs/msg/path_point.hpp>
-
+#include "mcm_message_conv.h"
 namespace etsi_its_messages_btp
 {
 

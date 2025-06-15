@@ -235,16 +235,15 @@ install(TARGETS ${PROJECT_NAME}_cp_ts_node
     DESTINATION lib/${PROJECT_NAME}
 )
 
-##MCM
+##MCM - RX
 # Add executable
-add_executable(${PROJECT_NAME}_mc_node
+add_executable(${PROJECT_NAME}_mc_rx_node
     src/mc_rx.cpp
-    src/mc_tx.cpp
     src/mcm_message_conv.cpp
 )
 
 # Include directories for the executable
-target_include_directories(${PROJECT_NAME}_mc_node
+target_include_directories(${PROJECT_NAME}_mc_rx_node
     PUBLIC
     include
     ${v2x_stack_INCLUDE_DIRS}
@@ -252,7 +251,7 @@ target_include_directories(${PROJECT_NAME}_mc_node
 )
 
 # Link against dependencies
-ament_target_dependencies(${PROJECT_NAME}_mc_node
+ament_target_dependencies(${PROJECT_NAME}_mc_rx_node
     rclcpp
     rclcpp_components
     std_msgs
@@ -264,15 +263,51 @@ ament_target_dependencies(${PROJECT_NAME}_mc_node
 )
 
 # Link against generated messages
-rosidl_target_interfaces(${PROJECT_NAME}_mc_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+rosidl_target_interfaces(${PROJECT_NAME}_mc_rx_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
 
 # Link against Vanetza libraries
-target_link_libraries(${PROJECT_NAME}_mc_node Vanetza::asn1 Vanetza::facilities)
-
-#target_link_libraries(${PROJECT_NAME}_mc_node ${etsi_its_mcm_thi_prima_msgs TARGETS})
+target_link_libraries(${PROJECT_NAME}_mc_rx_node Vanetza::asn1 Vanetza::facilities)
 
 # Install targets
-install(TARGETS ${PROJECT_NAME}_mc_node
+install(TARGETS ${PROJECT_NAME}_mc_rx_node
+    DESTINATION lib/${PROJECT_NAME}
+)
+
+
+##MCM - TX
+# Add executable
+add_executable(${PROJECT_NAME}_mc_tx_node
+    src/mc_tx.cpp
+)
+
+# Include directories for the executable
+target_include_directories(${PROJECT_NAME}_mc_tx_node
+    PUBLIC
+    include
+    ${v2x_stack_INCLUDE_DIRS}
+    ${ros_etsi_its_msgs_INCLUDE_DIRS}
+)
+
+# Link against dependencies
+ament_target_dependencies(${PROJECT_NAME}_mc_tx_node
+    rclcpp
+    rclcpp_components
+    std_msgs
+    #v2x_stack
+    ros_etsi_its_msgs
+    sensor_msgs
+    etsi_its_mcm_thi_prima_msgs
+    etsi_its_mcm_thi_prima_coding
+)
+
+# Link against generated messages
+rosidl_target_interfaces(${PROJECT_NAME}_mc_tx_node ${PROJECT_NAME} "rosidl_typesupport_cpp")
+
+# Link against Vanetza libraries
+target_link_libraries(${PROJECT_NAME}_mc_tx_node Vanetza::asn1 Vanetza::facilities)
+
+# Install targets
+install(TARGETS ${PROJECT_NAME}_mc_tx_node
     DESTINATION lib/${PROJECT_NAME}
 )
 

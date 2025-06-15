@@ -7,10 +7,10 @@
 
 namespace v2x_stack_btp
 {
-class CaRxNode : public rclcpp::Node
+class McTxNode : public rclcpp::Node
 {
 public:
-    explicit CaRxNode(const rclcpp::NodeOptions & options);
+    explicit McTxNode(const rclcpp::NodeOptions & options);
     void onPosition(const sensor_msgs::msg::NavSatFix::ConstSharedPtr);
     void onHeading(const std_msgs::msg::Float64::ConstSharedPtr);
     void onVelocity(const std_msgs::msg::Float64::ConstSharedPtr);
