@@ -23,9 +23,14 @@ public:
     //void indicate();
     void publish(const tUDPBTPDataIndMsg* ind);
 
-private:        
+private:      
+    int socksd;
     void initialize();
     
+    void receive_handler();
+
+    void send_handler(const udp_msgs::msg::UdpPacket::SharedPtr msg);
+
     struct sockaddr_in host_addr, ccu_addr;
     std::string ccu_ip;
     uint16_t ccu_port;
