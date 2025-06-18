@@ -24,3 +24,4 @@ services:
     executable: v2x_stack_btp_mc_node
     package: v2x_stack_btp
     name: v2x_stack_btp_mc_node
+
