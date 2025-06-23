@@ -43,11 +43,9 @@ UDPdispatcher::UDPdispatcher(const rclcpp::NodeOptions &options)
     }
 
     //create sender subscriber
-    auto sub_udb = this->create_subscription<udp_msgs::msg::UdpPacket>(
+    subscriber_ = this->create_subscription<udp_msgs::msg::UdpPacket>(
         "etsi_its_conversion/udp/out", 20, std::bind(&v2x_stack_btp::UDPdispatcher::send_handler, this, std::placeholders::_1));
-
-    initialize();    
-}
+    }
 
 void UDPdispatcher::initialize()
 {
@@ -128,8 +126,8 @@ void UDPdispatcher::send_handler(const udp_msgs::msg::UdpPacket::SharedPtr msg)
 
     ssize_t sent = sendto(
         socksd,
-        msg.data->data(),
-        msg.data->size(),
+        msg->data.data(),
+        msg->data.size(),
         0,
         reinterpret_cast<struct sockaddr*>(&dest_addr),
         sizeof(dest_addr)
@@ -182,8 +180,14 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);    
     auto node = std::make_shared<v2x_stack_btp::UDPdispatcher>(rclcpp::NodeOptions{});
-    
-    rclcpp::spin(node);   
+
+    // start udp receive frame
+    std::thread recv_thread([&]() {
+        node->initialize(); // blocking
+    });
+
+    rclcpp::spin(node);  // runs parallel to initialize
+    recv_thread.join();  // wait for thread to end
     rclcpp::shutdown();
 
     return 0;

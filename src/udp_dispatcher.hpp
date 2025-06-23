@@ -22,10 +22,10 @@ public:
     //virtual void requestTransmission();
     //void indicate();
     void publish(const tUDPBTPDataIndMsg* ind);
+    void initialize();
 
 private:      
     int socksd;
-    void initialize();
     
     void receive_handler();
 
@@ -35,6 +35,8 @@ private:
     std::string ccu_ip;
     uint16_t ccu_port;
     uint16_t host_port;
+
+    rclcpp::Subscription<udp_msgs::msg::UdpPacket>::SharedPtr subscriber_;
 
     rclcpp::Node::SharedPtr node_;
     rclcpp::Publisher<v2x_stack_btp::msg::CohdaInd>::SharedPtr publisher_;
