@@ -30,20 +30,34 @@ UDPdispatcher::UDPdispatcher(const rclcpp::NodeOptions &options)
     publisher = this->create_publisher<udp_msgs::msg::UdpPacket>("converter/udp/in", 10);
 
     //Node and publhiser for THI Development -> sends cohda converted udp package
-    node_ = std::make_shared<rclcpp::Node>("udp_publisher_node");
-    publisher_ = node_->create_publisher<v2x_stack_btp::msg::CohdaInd>("udp_data", 10);
+    //node_ = std::make_shared<rclcpp::Node>("udp_publisher_node");
+    //publisher_ = node_->create_publisher<v2x_stack_btp::msg::CohdaInd>("udp_data", 10);
 
-    initialize();    
-}
+    //create sender socket
+    socksd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (socksd < 0) {
+        RCLCPP_FATAL(rclcpp::get_logger("rclcpp"), "Error creating UDP send socket");
+        return;
+    } else {
+        RCLCPP_INFO(this->get_logger(), "Successfully created sender socket");
+    }
+
+    //create sender subscriber
+    subscriber_ = this->create_subscription<udp_msgs::msg::UdpPacket>(
+        "etsi_its_conversion/udp/out", 20, std::bind(&v2x_stack_btp::UDPdispatcher::send_handler, this, std::placeholders::_1));
+    }
 
 void UDPdispatcher::initialize()
 {
     RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "UDP Dispatcher initialized");
     
+    //create receive socket
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {
-        RCLCPP_FATAL(rclcpp::get_logger("rclcpp"), "Error creating UDP socket");
+        RCLCPP_FATAL(rclcpp::get_logger("rclcpp"), "Error creating UDP receive socket");
         return;
+    } else {
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Successfully created receive socket");
     }
 
     struct sockaddr_in host_addr, sender_addr;
@@ -51,6 +65,7 @@ void UDPdispatcher::initialize()
     host_addr.sin_port = htons(originatingPort);  // host_port
     host_addr.sin_addr.s_addr = INADDR_ANY;
     
+
     if (bind(sockfd, (struct sockaddr *)&host_addr, sizeof(host_addr)) < 0) {
         close(sockfd);
         RCLCPP_FATAL(rclcpp::get_logger("rclcpp"), "Error binding socket");
@@ -86,7 +101,50 @@ void UDPdispatcher::initialize()
             
         }
     }
- 
+
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "UDP Dispatcher initialized");
+    
+    receive_handler();
+    
+}
+
+void UDPdispatcher::send_handler(const udp_msgs::msg::UdpPacket::SharedPtr msg)
+{
+    RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Entering sending sequence");
+    //create sender address
+    struct sockaddr_in dest_addr;
+    dest_addr.sin_family = AF_INET;
+    dest_addr.sin_port = htons(destinationPort);  // dest port
+    inet_pton(AF_INET, destinationIP.c_str(), &dest_addr.sin_addr);
+
+    // get dest ip
+    std::string ip = !msg->address.empty() ? msg->address : destinationIP;
+    if (inet_pton(AF_INET, ip.c_str(), &dest_addr.sin_addr) <= 0) {
+        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Ungültige IP-Adresse: %s", ip.c_str());
+        return;
+    }
+
+    ssize_t sent = sendto(
+        socksd,
+        msg->data.data(),
+        msg->data.size(),
+        0,
+        reinterpret_cast<struct sockaddr*>(&dest_addr),
+        sizeof(dest_addr)
+    );
+
+    //check send
+    if (sent < 0) {
+        RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Failed to send UDP packet");
+    } else {
+        RCLCPP_INFO(rclcpp::get_logger("rclcpp"), "Sent %zd bytes via UDP", sent);
+    }
+}
+
+void UDPdispatcher::receive_handler()
+{
+
+    
 }
 
 void UDPdispatcher::publish(const tUDPBTPDataIndMsg *ind)
@@ -113,7 +171,7 @@ void UDPdispatcher::publish(const tUDPBTPDataIndMsg *ind)
 
     
 
-    publisher_->publish(*ccu_ind);
+    //publisher_->publish(*ccu_ind);
 }
 
 } // namespace v2x_stack_btp
@@ -122,7 +180,14 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);    
     auto node = std::make_shared<v2x_stack_btp::UDPdispatcher>(rclcpp::NodeOptions{});
-    rclcpp::spin(node);   
+
+    // start udp receive frame
+    std::thread recv_thread([&]() {
+        node->initialize(); // blocking
+    });
+
+    rclcpp::spin(node);  // runs parallel to initialize
+    recv_thread.join();  // wait for thread to end
     rclcpp::shutdown();
 
     return 0;
