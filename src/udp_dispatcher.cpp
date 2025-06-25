@@ -12,9 +12,9 @@ UDPdispatcher::UDPdispatcher(const rclcpp::NodeOptions &options)
     : Node("udp_publisher", options)
 {
     // parameter's default values
-    this->declare_parameter<std::string>("originating_ip", "172.16.2.1");
+    this->declare_parameter<std::string>("originating_ip", "172.16.2.2");
     this->declare_parameter<int>("originating_port", 4400);
-    this->declare_parameter<std::string>("destination_ip", "172.16.2.1");
+    this->declare_parameter<std::string>("destination_ip", "172.16.2.2");
     this->declare_parameter<int>("destination_port", 4401);
 
     // Get parameter values from config.yml

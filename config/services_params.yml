@@ -19,9 +19,14 @@ services:
     executable: v2x_stack_btp_den_node
     package: v2x_stack_btp
     name: v2x_stack_btp_den_node
-  mcm_service:
+  mcm_tx_service:
     enabled: true
-    executable: v2x_stack_btp_mc_node
+    executable: v2x_stack_btp_mc_tx_node
     package: v2x_stack_btp
-    name: v2x_stack_btp_mc_node
+    name: v2x_stack_btp_mc_tx_node
+  mcm_rx_service:
+    enabled: true
+    executable: v2x_stack_btp_mc_rx_node
+    package: v2x_stack_btp
+    name: v2x_stack_btp_mc_rx_node
 
