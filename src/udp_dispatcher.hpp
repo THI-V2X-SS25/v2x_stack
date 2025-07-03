@@ -22,11 +22,19 @@ public:
     //virtual void requestTransmission();
     //void indicate();
     void publish(const tUDPBTPDataIndMsg* ind);
+    void initialize();
 
 private:        
-    void initialize();
     
+    // Method to send UDP packet from ROS topic callback
+    bool send_udp_packet(const std::vector<uint8_t>& data);
+    void createCohdaBTP(const udp_msgs::msg::UdpPacket::SharedPtr udp);
+    
+    // UDP socket descriptors and destination address    
+    int recv_sockfd_;
+    int send_sockfd_;
     struct sockaddr_in host_addr, ccu_addr;
+    struct sockaddr_in dest_addr_;  // for sending
     std::string ccu_ip;
     uint16_t ccu_port;
     uint16_t host_port;
@@ -34,6 +42,7 @@ private:
     rclcpp::Node::SharedPtr node_;
     rclcpp::Publisher<v2x_stack_btp::msg::CohdaInd>::SharedPtr publisher_;
     rclcpp::Publisher<udp_msgs::msg::UdpPacket>::SharedPtr publisher;
+    rclcpp::Subscription<udp_msgs::msg::UdpPacket>::SharedPtr udp_send_subscriber_;  // the new to send 
 
     std::string originatingIp;    
     int originatingPort;
